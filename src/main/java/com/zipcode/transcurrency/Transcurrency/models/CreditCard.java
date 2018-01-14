@@ -21,8 +21,7 @@ public class CreditCard {
 
     }
 
-    public CreditCard(Long CreditCardId, String cardName, int cardNumber, String expDate, int cvv){
-        this.creditCardId = CreditCardId;
+    public CreditCard(String cardName, int cardNumber, String expDate, int cvv){
         this.cardName = cardName;
         this.cardNumber = cardNumber;
         this.expDate = expDate;

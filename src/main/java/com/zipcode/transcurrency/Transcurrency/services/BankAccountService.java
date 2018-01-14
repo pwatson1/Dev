@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -15,13 +17,22 @@ public class BankAccountService {
 
     private BankAccountRepository bankAccountRepository;
 
+
+
     public BankAccountService(BankAccountRepository bankAccountRepository) {
         this.bankAccountRepository = bankAccountRepository;
     }
 
-    public ResponseEntity<Iterable<BankAccount>> getAllBankAccounts() {
-        Iterable<BankAccount> allBankAccounts = bankAccountRepository.findAll();
-        return new ResponseEntity<>(allBankAccounts, HttpStatus.OK);
+//    public ResponseEntity<Iterable<BankAccount>> getAllBankAccounts() {
+//        Iterable<BankAccount> allBankAccounts = bankAccountRepository.findAll();
+//        return new ResponseEntity<>(allBankAccounts, HttpStatus.OK);
+//    }
+
+    public List<BankAccount> getAllBankAccounts() {
+        List<BankAccount> bankAccounts = new ArrayList<>();
+        bankAccountRepository.findAll()
+                .forEach(bankAccounts::add);
+        return bankAccounts;
     }
 
     public ResponseEntity<?> createBankAccount(BankAccount bankAccount) {

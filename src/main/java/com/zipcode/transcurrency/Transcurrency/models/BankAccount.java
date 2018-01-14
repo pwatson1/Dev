@@ -25,8 +25,7 @@ public class BankAccount {
 
     }
 
-    public BankAccount(Long bankAccountId, int accountNumber, int routingNumber, String bankName){
-        this.bankAccountId = bankAccountId;
+    public BankAccount(int accountNumber, int routingNumber, String bankName){
         this.accountNumber = accountNumber;
         this.routingNumber = routingNumber;
         this.bankName = bankName;

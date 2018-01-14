@@ -21,6 +21,7 @@ public class User {
 
     //set balance to zero when user instance is created
     public User(String name, String username) {
+
         this(name, username, BigDecimal.ZERO);
     }
 

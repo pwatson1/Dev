@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 public class BankAccountController {
@@ -23,8 +25,13 @@ public class BankAccountController {
     }
 
     //gets all bank accounts
+//    @RequestMapping(value = "/bankAccounts", method = RequestMethod.GET)
+//    public ResponseEntity<Iterable<BankAccount>> getAllBankAccounts() {
+//        return bankAccountService.getAllBankAccounts();
+//    }
+
     @RequestMapping(value = "/bankAccounts", method = RequestMethod.GET)
-    public ResponseEntity<Iterable<BankAccount>> getAllBankAccounts() {
+    public List<BankAccount> getAllBankAccounts() {
         return bankAccountService.getAllBankAccounts();
     }
 

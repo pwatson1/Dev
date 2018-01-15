@@ -1,5 +1,10 @@
 package com.zipcode.transcurrency.Transcurrency.models;
 
+
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +22,8 @@ public class User {
     private String username;
     private BigDecimal balance;
 
+    private static final Logger logger = LogManager.getLogger(User.class);
+
     public User(){}
 
     //set balance to zero when user instance is created
@@ -31,18 +38,22 @@ public class User {
     }
 
     public Long getId() {
+        logger.info("Retrieving I.D.");
         return id;
     }
 
     public void setId(Long id) {
+        logger.info("Committing id to memory.");
         this.id = id;
     }
 
     public String getName() {
+        logger.info("Retrieving name.");
         return name;
     }
 
     public void setName(String name) {
+        logger.info("Committing name to memory.");
         this.name = name;
     }
 

@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.Before;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.hamcrest.Matchers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.isNotNull;
 import static org.mockito.Mockito.when;
 
 public class UserServiceTest {
@@ -60,7 +62,7 @@ public class UserServiceTest {
         when(userRepository.save(any(User.class))).thenReturn(new User());
         User user1 = new User();
 
-        assertThat(userService.addUserWithVerification(user1), is(notNullValue()));
+        assertThat(userService.addUserWithVerification(user1), isNotNull());
     }
 
     @Test

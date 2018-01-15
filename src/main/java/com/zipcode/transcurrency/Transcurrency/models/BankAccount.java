@@ -1,10 +1,14 @@
 package com.zipcode.transcurrency.Transcurrency.models;
 
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.persistence.*;
 
 @Entity
 public class BankAccount {
+    private static final Logger logger = LogManager.getLogger(BankAccount.class);
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,34 +37,42 @@ public class BankAccount {
     }
 
     public long getBankAccountId() {
+        logger.info("Retrieving bankAccountId.");
         return bankAccountId;
     }
 
     public void setBankAccountId(Long bankAccountId) {
+        logger.info("Committing CreditCardId to memory.");
         this.bankAccountId = bankAccountId;
     }
 
     public int getAccountNumber() {
+        logger.info("Retrieving accountNumber.");
         return accountNumber;
     }
 
     public void setAccountNumber(int accountNumber) {
+        logger.info("Committing accountNumber to memory.");
         this.accountNumber = accountNumber;
     }
 
     public int getRoutingNumber() {
+        logger.info("Retrieving routingNumber.");
         return routingNumber;
     }
 
     public void setRoutingNumber(int routingNumber) {
+        logger.info("Committing routingNumber to memory.");
         this.routingNumber = routingNumber;
     }
 
     public String getBankName() {
+        logger.info("Retrieving bankName.");
         return bankName;
     }
 
     public void setBankName(String bankName) {
+        logger.info("Committing bankName to memory.");
         this.bankName = bankName;
     }
 

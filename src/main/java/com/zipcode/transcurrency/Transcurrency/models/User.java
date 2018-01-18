@@ -1,10 +1,9 @@
 package com.zipcode.transcurrency.Transcurrency.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -17,9 +16,14 @@ public class User {
     private String username;
     private BigDecimal balance;
 
+    @OneToMany
+    private Set<BankAccount> bankAccountList = new HashSet<>();
+
+    @OneToMany
+    private Set<CreditCard> creditCardList = new HashSet<>();
+
     public User() {
     }
-
 
     //set balance to zero when user instance is created
     public User(String name, String username) {
@@ -67,5 +71,21 @@ public class User {
 
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
+    }
+
+    public Set<BankAccount> getBankAccountList() {
+        return bankAccountList;
+    }
+
+    public void setBankAccountList(Set<BankAccount> bankAccountList) {
+        this.bankAccountList = bankAccountList;
+    }
+
+    public Set<CreditCard> getCreditCardList() {
+        return creditCardList;
+    }
+
+    public void setCreditCardList(Set<CreditCard> creditCardList) {
+        this.creditCardList = creditCardList;
     }
 }

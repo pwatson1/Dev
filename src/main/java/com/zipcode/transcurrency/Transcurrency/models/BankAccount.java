@@ -1,4 +1,4 @@
-package com.zipcode.transcurrency.Transcurrency.com.zipcode.transcurrency.models;
+package com.zipcode.transcurrency.Transcurrency.models;
 
 public class BankAccount {
 

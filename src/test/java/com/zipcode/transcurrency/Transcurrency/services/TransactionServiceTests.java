@@ -1,7 +1,6 @@
 package com.zipcode.transcurrency.Transcurrency.services;
 
-import com.zipcode.transcurrency.Transcurrency.com.zipcode.transcurrency.models.Transaction;
-import com.zipcode.transcurrency.Transcurrency.com.zipcode.transcurrency.models.Transfer;
+import com.zipcode.transcurrency.Transcurrency.models.Transaction;
 import com.zipcode.transcurrency.Transcurrency.repositories.TransactionRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -66,28 +65,23 @@ public class TransactionServiceTests {
         transactionService.saveTransaction(savedTransaction);
 
         savedTransaction.setId(1L);
-        Transfer savedTransfer = new Transfer();
-        savedTransaction.setTransfer(savedTransfer);
 
         transactionService.saveTransaction(savedTransaction);
 
-        assertThat(savedTransfer, is(savedTransaction.getTransfer()));
-    }
-
-    @Test
-    public void createTransactionTest() throws Exception {
-        assertNotNull(transactionService.createTransaction());
+        assertThat(1L, is(savedTransaction.getId()));
     }
 
     @Test
     public void deleteTransactionTest() throws Exception {
-        Transaction transaction = new Transaction(1L);
-        Transaction secondTransaction = new Transaction(1L);
+        Transaction transaction = new Transaction();
+        transaction.setId(1L);
+        Transaction secondTransaction = new Transaction();
+        secondTransaction.setId(2L);
 
-        when(transactionRepository.getOne(1L)).thenReturn(secondTransaction);
+        when(transactionRepository.getOne(1L)).thenReturn(transaction);
 
         transactionService.deleteTransaction(secondTransaction.getId());
 
-        verify(transactionRepository, times(1)).delete(secondTransaction);
+        verify(transactionRepository, times(1)).delete(transaction);
     }
 }

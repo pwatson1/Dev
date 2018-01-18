@@ -1,17 +1,16 @@
 package com.zipcode.transcurrency.Transcurrency.services;
 
-import com.zipcode.transcurrency.Transcurrency.com.zipcode.transcurrency.models.Transaction;
-import com.zipcode.transcurrency.Transcurrency.com.zipcode.transcurrency.models.Transfer;
+import com.zipcode.transcurrency.Transcurrency.models.Transaction;
 import com.zipcode.transcurrency.Transcurrency.repositories.TransactionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
 public class TransactionService {
 
+    @Autowired
     private TransactionRepository transactionRepository;
 
     public TransactionService(TransactionRepository transactionRepository) {
@@ -22,40 +21,40 @@ public class TransactionService {
 
     public List<Transaction> getAllTransactions() {
 
-        return transactionRepository.findAll();
+        List<Transaction> transactions = transactionRepository.findAll();
+        return transactions;
 
     }
 
     public Transaction getTransactionById(Long id) {
 
-        if(transactionRepository.findOne(id) == null) {
-            return null;
-        }
-
-        return transactionRepository.findOne(id);
+        Transaction transaction = transactionRepository.findOne(id);
+        return transaction;
 
     }
 
-    public Transaction createTransaction() {
+    public boolean saveTransaction(Transaction transaction) {
 
-        Transaction newTransaction = new Transaction();
-        return newTransaction;
-    }
-
-    public void saveTransaction(Transaction transaction) {
-
-        if(transaction.getId() != null) {
-            transaction.setTransfer(new Transfer());
+        if(transactionRepository.equals(transaction)) {
+            return false;
         }
 
         transactionRepository.save(transaction);
+        return true;
 
     }
 
     public void deleteTransaction(Long id) {
 
-        transactionRepository.delete(id);
+        Transaction transaction = getTransactionById(id);
+        transactionRepository.delete(transaction);
 
+    }
+
+    public void updateTransaction(Transaction transaction) {
+        int index = transactionRepository.findAll()
+                .indexOf(getTransactionById(transaction.getId()));
+        transactionRepository.findAll().set(index, transaction);
     }
 
 

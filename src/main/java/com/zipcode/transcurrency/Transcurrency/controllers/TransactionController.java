@@ -75,4 +75,14 @@ public class TransactionController {
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
+    // UPDATE EXISTING PERSON
+
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Transaction> update(@PathVariable Long id, @RequestBody Transaction transaction) {
+        LOG.info("updating transaction: {}", transaction);
+        Transaction currentTransaction = new Transaction();
+
+        return new ResponseEntity<>(currentTransaction, HttpStatus.OK);
+    }
+
 }

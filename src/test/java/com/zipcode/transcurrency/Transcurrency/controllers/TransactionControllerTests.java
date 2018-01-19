@@ -127,13 +127,32 @@ public class TransactionControllerTests {
         when(transactionService.exists(transaction)).thenReturn(true);
 
         mockMvc.perform(
-                post("/transactions")
+                post("/transactions/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(transaction)))
                 .andExpect(status().isConflict());
 
         verify(transactionService, times(1)).exists(transaction);
         verifyNoMoreInteractions(transactionService);
+    }
+
+    @Test
+    public void test_update_person_success() throws Exception {
+        Transaction transaction = new Transaction(1L);
+
+        when(transactionService.getTransactionById(transaction.getId())).thenReturn(transaction);
+        doNothing().when(transactionService).updateTransaction(transaction);
+
+        mockMvc.perform(
+                put("/transactions/{id}", transaction.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(transaction)))
+                .andExpect(status().isOk());
+
+        verify(transactionService, times(1)).getTransactionById(transaction.getId());
+        verify(transactionService, times(1)).updateTransaction(transaction);
+        verifyNoMoreInteractions(transactionService);
+
     }
 
     public static String asJsonString(final Object obj) {

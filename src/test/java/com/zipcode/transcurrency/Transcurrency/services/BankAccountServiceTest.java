@@ -28,14 +28,32 @@ public class BankAccountServiceTest {
         bankAccountService = new BankAccountService(bankAccountRepository);
     }
 
+//    @Test
+//    public void getAllBankAccounts() {
+//
+//        BankAccount bankAccount = new BankAccount();
+//        List<BankAccount> bankAccountList = new ArrayList<>();
+//        bankAccountList.add(bankAccount);
+//
+//        when(bankAccountRepository.findAll()).thenReturn(bankAccountList);
+//
+//        List<BankAccount> bankAccountTest = bankAccountService.getAllBankAccounts();
+//
+//        verify(bankAccountRepository, times(1)).findAll();
+//        assertEquals(bankAccountList.size(), 1);
+//    }
+
     @Test
     public void getAllBankAccounts() {
 
         BankAccount bankAccount = new BankAccount();
-        List<BankAccount> bankAccountList = new ArrayList<>();
-        bankAccountList.add(bankAccount);
+        //<BankAccount> bankAccountList = new ArrayList<>();
 
-        when(bankAccountRepository.findAll()).thenReturn(bankAccountList);
+        bankAccountRepository.save(bankAccount);
+        Iterable<BankAccount> bankAccountList = bankAccountRepository.findAll();
+       // bankAccountList.add(bankAccount);
+
+        when(bankAccountRepository.findAll()).thenReturn(ResponseEntity<>(bankAccountList));
 
         List<BankAccount> bankAccountTest = bankAccountService.getAllBankAccounts();
 

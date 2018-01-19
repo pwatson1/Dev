@@ -23,17 +23,17 @@ public class BankAccountService {
         this.bankAccountRepository = bankAccountRepository;
     }
 
-//    public ResponseEntity<Iterable<BankAccount>> getAllBankAccounts() {
-//        Iterable<BankAccount> allBankAccounts = bankAccountRepository.findAll();
-//        return new ResponseEntity<>(allBankAccounts, HttpStatus.OK);
-//    }
-
-    public List<BankAccount> getAllBankAccounts() {
-        List<BankAccount> bankAccounts = new ArrayList<>();
-        bankAccountRepository.findAll()
-                .forEach(bankAccounts::add);
-        return bankAccounts;
+    public ResponseEntity<Iterable<BankAccount>> getAllBankAccounts() {
+        Iterable<BankAccount> allBankAccounts = bankAccountRepository.findAll();
+        return new ResponseEntity<>(allBankAccounts, HttpStatus.OK);
     }
+
+//    public List<BankAccount> getAllBankAccounts() {
+//        List<BankAccount> bankAccounts = new ArrayList<>();
+//        bankAccountRepository.findAll()
+//                .forEach(bankAccounts::add);
+//        return bankAccounts;
+//    }
 
     public ResponseEntity<?> createBankAccount(BankAccount bankAccount) {
 

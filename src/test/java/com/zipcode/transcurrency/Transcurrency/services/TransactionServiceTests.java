@@ -68,16 +68,15 @@ public class TransactionServiceTests {
     }
 
     @Test
-    public void deleteTransactionTest() throws Exception {
-        Transaction transaction = new Transaction();
-        transaction.setId(1L);
-        Transaction secondTransaction = new Transaction();
-        secondTransaction.setId(2L);
+    public void deleteTransactionByIdTest() throws Exception {
+        Long id = 1L;
+        doNothing().when(transactionRepository).delete(1L);
+        transactionService.deleteTransactionById(id);
+        verify(transactionRepository, times(1)).delete(1L);
+    }
 
-        when(transactionRepository.getOne(1L)).thenReturn(transaction);
+    @Test
+    public void updateTransactionTest() throws Exception {
 
-        transactionService.deleteTransaction(secondTransaction.getId());
-
-        verify(transactionRepository, times(1)).delete(transaction);
     }
 }

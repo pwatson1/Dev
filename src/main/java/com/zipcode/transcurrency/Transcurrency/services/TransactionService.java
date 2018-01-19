@@ -39,17 +39,14 @@ public class TransactionService {
 
     }
 
-    public void deleteTransaction(Long id) {
+    public void deleteTransactionById(Long id) {
 
-        Transaction transaction = getTransactionById(id);
-        transactionRepository.delete(transaction);
+        transactionRepository.delete(id);
 
     }
 
     public void updateTransaction(Transaction transaction) {
-        int index = transactionRepository.findAll()
-                .indexOf(getTransactionById(transaction.getId()));
-        transactionRepository.findAll().set(index, transaction);
+        transactionRepository.save(transaction);
     }
 
     public boolean exists(Transaction transaction) {

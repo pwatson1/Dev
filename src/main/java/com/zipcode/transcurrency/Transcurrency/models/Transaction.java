@@ -3,6 +3,7 @@ package com.zipcode.transcurrency.Transcurrency.models;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
 public class Transaction {
@@ -23,7 +24,7 @@ public class Transaction {
         this.id = id;
     }
 
-    public Transaction(Long id, Long sourceUserId, Long destinationUserId, Long amount, Long sourceUserAccountId, Long destinationUserAccountId, Long transactionId) {
+    public Transaction(Long id, Long sourceUserId, Long destinationUserId, Long amount, Long sourceUserAccountId, Long destinationUserAccountId) {
         this.id = id;
         this.sourceUserId = sourceUserId;
         this.destinationUserId = destinationUserId;
@@ -80,4 +81,21 @@ public class Transaction {
         this.destinationUserAccountId = destinationUserAccountId;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transaction that = (Transaction) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(sourceUserId, that.sourceUserId) &&
+                Objects.equals(destinationUserId, that.destinationUserId) &&
+                Objects.equals(amount, that.amount) &&
+                Objects.equals(sourceUserAccountId, that.sourceUserAccountId) &&
+                Objects.equals(destinationUserAccountId, that.destinationUserAccountId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, sourceUserId, destinationUserId, amount, sourceUserAccountId, destinationUserAccountId);
+    }
 }

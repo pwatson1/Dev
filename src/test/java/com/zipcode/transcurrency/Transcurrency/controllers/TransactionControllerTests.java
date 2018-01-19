@@ -1,5 +1,6 @@
 package com.zipcode.transcurrency.Transcurrency.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zipcode.transcurrency.Transcurrency.config.WebConfig;
 import com.zipcode.transcurrency.Transcurrency.filter.CorsFilter;
 import com.zipcode.transcurrency.Transcurrency.models.Transaction;
@@ -20,11 +21,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebAppConfiguration
@@ -69,5 +70,79 @@ public class TransactionControllerTests {
         verify(transactionService, times(1)).getAllTransactions();
         verifyNoMoreInteractions(transactionService);
 
+    }
+
+    // GET TRANSACTION BY ID
+
+    @Test
+    public void test_get_by_id_success() throws Exception {
+        Transaction transaction = new Transaction(1L);
+
+        when(transactionService.getTransactionById(1L)).thenReturn(transaction);
+
+        mockMvc.perform(get("/transactions/{id}", 1L))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(jsonPath("$.id", is(1)));
+
+        verify(transactionService, times(1)).getTransactionById(1L);
+        verifyNoMoreInteractions(transactionService);
+    }
+
+    @Test
+    public void test_get_by_id_fail_404_not_found() throws Exception {
+        when(transactionService.getTransactionById(1L)).thenReturn(null);
+
+        mockMvc.perform(get("/transactions/{id}", 1L))
+                .andExpect(status().isNotFound());
+
+        verify(transactionService, times(1)).getTransactionById(1L);
+        verifyNoMoreInteractions(transactionService);
+    }
+
+    // CREATE NEW TRANSACTION
+
+    @Test
+    public void test_create_transaction_success() throws Exception {
+        Transaction transaction = new Transaction(1L, 12L, 13L, 1234L, 12345L, 12346L);
+
+        when(transactionService.exists(transaction)).thenReturn(false);
+        doNothing().when(transactionService).createTransaction(transaction);
+
+        mockMvc.perform(
+                post("/transactions/create")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(transaction)))
+                .andExpect(status().isCreated())
+                .andExpect(header().string("location", containsString("/transactions/1")));
+
+        verify(transactionService, times(1)).exists(transaction);
+        verify(transactionService, times(1)).createTransaction(transaction);
+    }
+
+    @Test
+    public void test_create_transaction_fail_409_conflict() throws Exception {
+        Transaction transaction = new Transaction(1L);
+
+        when(transactionService.exists(transaction)).thenReturn(true);
+
+        mockMvc.perform(
+                post("/transactions")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(transaction)))
+                .andExpect(status().isConflict());
+
+        verify(transactionService, times(1)).exists(transaction);
+        verifyNoMoreInteractions(transactionService);
+    }
+
+    public static String asJsonString(final Object obj) {
+        try {
+            final ObjectMapper mapper = new ObjectMapper();
+            return mapper.writeValueAsString(obj);
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

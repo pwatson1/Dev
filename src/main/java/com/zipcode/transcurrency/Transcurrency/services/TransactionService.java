@@ -33,14 +33,9 @@ public class TransactionService {
 
     }
 
-    public boolean saveTransaction(Transaction transaction) {
-
-        if(transactionRepository.equals(transaction)) {
-            return false;
-        }
+    public void createTransaction(Transaction transaction) {
 
         transactionRepository.save(transaction);
-        return true;
 
     }
 
@@ -57,5 +52,7 @@ public class TransactionService {
         transactionRepository.findAll().set(index, transaction);
     }
 
-
+    public boolean exists(Transaction transaction) {
+        return getTransactionById(transaction.getId()) != null;
+    }
 }

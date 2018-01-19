@@ -59,16 +59,12 @@ public class TransactionServiceTests {
     }
 
     @Test
-    public void saveTransactionTest() throws Exception {
-        Transaction savedTransaction = new Transaction();
+    public void createTransactionTest() throws Exception {
+        Transaction createdTransaction = new Transaction(1L, 12L, 13L, 1234L, 12345L, 12346L);
 
-        transactionService.saveTransaction(savedTransaction);
+        transactionService.createTransaction(createdTransaction);
 
-        savedTransaction.setId(1L);
-
-        transactionService.saveTransaction(savedTransaction);
-
-        assertThat(1L, is(savedTransaction.getId()));
+        assertThat(1L, is(createdTransaction.getId()));
     }
 
     @Test

@@ -1,13 +1,13 @@
 package com.zipcode.transcurrency.Transcurrency.models;
 
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import javax.persistence.*;
 
 @Entity
 public class BankAccount {
+
     private static final Logger logger = LogManager.getLogger(BankAccount.class);
 
     @Id
@@ -78,4 +78,6 @@ public class BankAccount {
 
     public void transferTo(BankAccount toBankAccount, double amount) {
     }
+
+
 }

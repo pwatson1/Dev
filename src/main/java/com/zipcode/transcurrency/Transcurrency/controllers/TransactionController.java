@@ -75,9 +75,24 @@ public class TransactionController {
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     public ResponseEntity<Transaction> update(@PathVariable Long id, @RequestBody Transaction transaction) {
         LOG.info("updating transaction: {}", transaction);
-        Transaction currentTransaction = new Transaction();
+        Transaction currentTransaction = transactionService.getTransactionById(id);
 
+        if (currentTransaction == null)
+        {
+            LOG.info("Transaction with id {} not found", id);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        currentTransaction.setSourceUserId(transaction.getSourceUserId());
+        currentTransaction.setDestinationUserId(transaction.getDestinationUserId());
+        currentTransaction.setSourceUserAccountId(transaction.getSourceUserAccountId());
+        currentTransaction.setDestinationUserAccountId(transaction.getDestinationUserAccountId());
+        currentTransaction.setAmount(transaction.getAmount());
+
+        transactionService.updateTransaction(transaction);
         return new ResponseEntity<>(currentTransaction, HttpStatus.OK);
     }
+
+    @RequestMapping()
 
 }

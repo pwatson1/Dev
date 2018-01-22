@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -28,32 +29,14 @@ public class BankAccountServiceTest {
         bankAccountService = new BankAccountService(bankAccountRepository);
     }
 
-//    @Test
-//    public void getAllBankAccounts() {
-//
-//        BankAccount bankAccount = new BankAccount();
-//        List<BankAccount> bankAccountList = new ArrayList<>();
-//        bankAccountList.add(bankAccount);
-//
-//        when(bankAccountRepository.findAll()).thenReturn(bankAccountList);
-//
-//        List<BankAccount> bankAccountTest = bankAccountService.getAllBankAccounts();
-//
-//        verify(bankAccountRepository, times(1)).findAll();
-//        assertEquals(bankAccountList.size(), 1);
-//    }
-
     @Test
     public void getAllBankAccounts() {
 
         BankAccount bankAccount = new BankAccount();
-        //<BankAccount> bankAccountList = new ArrayList<>();
+        List<BankAccount> bankAccountList = new ArrayList<>();
+        bankAccountList.add(bankAccount);
 
-        bankAccountRepository.save(bankAccount);
-        Iterable<BankAccount> bankAccountList = bankAccountRepository.findAll();
-       // bankAccountList.add(bankAccount);
-
-        when(bankAccountRepository.findAll()).thenReturn(ResponseEntity<>(bankAccountList));
+        when(bankAccountRepository.findAll()).thenReturn(bankAccountList);
 
         List<BankAccount> bankAccountTest = bankAccountService.getAllBankAccounts();
 
@@ -61,16 +44,42 @@ public class BankAccountServiceTest {
         assertEquals(bankAccountList.size(), 1);
     }
 
-    @Test
-    public void createBankAccount() {
+    @Test(expected = RuntimeException.class)
+    public void createBankAccount() throws Exception {
+
+        when(bankAccountRepository.save(any(BankAccount.class))).thenThrow(RuntimeException.class);
+
+        BankAccount bankAccountTest = new BankAccount();
+
+        bankAccountService.createBankAccount(bankAccountTest);
+
+        verify(bankAccountRepository, times(1)).save(bankAccountTest);
+        verify(bankAccountRepository).save(any(BankAccount.class));
+
     }
 
     @Test
     public void getBankAccount() {
+
+//        //Given
+//        Long bankAccountId = 1L;
+//        BankAccount bankAccountInfo = new BankAccount(1232, 5468, "JP Morgan");
+//
+//        //When
+//        when(bankAccountRepository.findOne(bankAccountId)).thenReturn(bankAccountInfo);
+//        BankAccount newBankAccount = bankAccountService.getBankAccount(bankAccountId);
+//
+//        //Then
+//        assertEquals(1L, newBankAccount.getBankAccountId());
+//        assertEquals("JP Morgan", newBankAccount.getBankName());
     }
 
     @Test
     public void updateBankAccount() {
+
+
+
+
     }
 
     @Test

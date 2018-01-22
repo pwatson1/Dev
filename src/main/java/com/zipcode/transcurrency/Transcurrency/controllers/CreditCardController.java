@@ -4,10 +4,11 @@ package com.zipcode.transcurrency.Transcurrency.controllers;
 import com.zipcode.transcurrency.Transcurrency.models.CreditCard;
 import com.zipcode.transcurrency.Transcurrency.services.CreditCardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
+import java.util.List;
 
 
 @RestController
@@ -26,15 +27,16 @@ public class CreditCardController {
 
     //gets all the credit cards
     @RequestMapping(value = "/creditCards", method = RequestMethod.GET)
-    public ResponseEntity<Iterable<CreditCard>> getAllCreditCards() {
-        return creditCardService.getAllCreditCards();
+    public ResponseEntity<List<CreditCard>> getAllCreditCards() {
+
+        return new ResponseEntity<>(creditCardService.getAllCreditCards(), HttpStatus.OK);
     }
 
     //creates credit cards
-    @RequestMapping(value = "/creditCards", method = RequestMethod.POST)
-    public ResponseEntity<?> createCreditCard(@RequestBody CreditCard creditCard) {
-        return creditCardService.createCreditCard(creditCard);
-    }
+//    @RequestMapping(value = "/creditCards", method = RequestMethod.POST)
+//    public ResponseEntity<?> createCreditCard(@RequestBody CreditCard creditCard) {
+//        return new ResponseEntity<>(creditCardService.createCreditCard(creditCard);
+//    }
 
     //gets a credit card
     @RequestMapping(value = "/creditCards/{creditCardId}", method = RequestMethod.GET)

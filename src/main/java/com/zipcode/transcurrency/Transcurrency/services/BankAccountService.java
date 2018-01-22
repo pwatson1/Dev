@@ -23,19 +23,19 @@ public class BankAccountService {
         this.bankAccountRepository = bankAccountRepository;
     }
 
-    public ResponseEntity<Iterable<BankAccount>> getAllBankAccounts() {
-        Iterable<BankAccount> allBankAccounts = bankAccountRepository.findAll();
-        return new ResponseEntity<>(allBankAccounts, HttpStatus.OK);
-    }
-
-//    public List<BankAccount> getAllBankAccounts() {
-//        List<BankAccount> bankAccounts = new ArrayList<>();
-//        bankAccountRepository.findAll()
-//                .forEach(bankAccounts::add);
-//        return bankAccounts;
+//    public Iterable<BankAccount> getAllBankAccounts() {
+//        Iterable<BankAccount> allBankAccounts = bankAccountRepository.findAll();
+//        return allBankAccounts;
 //    }
 
-    public ResponseEntity<?> createBankAccount(BankAccount bankAccount) {
+    public List<BankAccount> getAllBankAccounts() {
+        List<BankAccount> bankAccounts = new ArrayList<>();
+        bankAccountRepository.findAll()
+                .forEach(bankAccounts::add);
+        return bankAccounts;
+    }
+
+    public HttpHeaders createBankAccount(BankAccount bankAccount) {
 
         bankAccount = bankAccountRepository.save(bankAccount);
 
@@ -47,22 +47,20 @@ public class BankAccountService {
                 .toUri();
         responseHeaders.setLocation(newBankAccountURI);
 
-        return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
+        return responseHeaders;
     }
 
-    public ResponseEntity<?> getBankAccount(Long bankAccountId){
-        BankAccount bankAccount = bankAccountRepository.findOne(bankAccountId);
-        return new ResponseEntity<>(bankAccount, HttpStatus.OK);
+    public BankAccount getBankAccount(Long bankAccountId){
+        return bankAccountRepository.findOne(bankAccountId);
     }
 
-    public ResponseEntity<?> updateBankAccount(BankAccount bankAccount, Long bankAccountId){
-        BankAccount account = bankAccountRepository.save(bankAccount);
-        return new ResponseEntity<>(account, HttpStatus.OK);
+    public BankAccount updateBankAccount(BankAccount bankAccount, Long bankAccountId){
+        return bankAccountRepository.save(bankAccount);
     }
 
-    public ResponseEntity<?> deleteBankAccount(Long bankAccountId){
+    public boolean deleteBankAccount(Long bankAccountId){
         bankAccountRepository.delete(bankAccountId);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return true;
     }
 
 }

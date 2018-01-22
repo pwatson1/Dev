@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -15,14 +17,21 @@ public class CreditCardService {
 
     private CreditCardRepository creditCardRepository;
 
-    private CreditCardService(CreditCardRepository creditCardRepository) {
+    public CreditCardService(CreditCardRepository creditCardRepository) {
         this.creditCardRepository = creditCardRepository;
     }
 
     //gets all credit cards
-    public ResponseEntity<Iterable<CreditCard>> getAllCreditCards() {
-        Iterable<CreditCard> allCreditCards = creditCardRepository.findAll();
-        return new ResponseEntity<>(allCreditCards, HttpStatus.OK);
+//    public ResponseEntity<Iterable<CreditCard>> getAllCreditCards() {
+//        Iterable<CreditCard> allCreditCards = creditCardRepository.findAll();
+//        return new ResponseEntity<>(allCreditCards, HttpStatus.OK);
+//    }
+
+    public List<CreditCard> getAllCreditCards() {
+        List<CreditCard> creditCards = new ArrayList<>();
+        creditCardRepository.findAll()
+                .forEach(creditCards::add);
+        return creditCards;
     }
 
     //creates a credit card

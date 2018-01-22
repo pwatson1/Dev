@@ -93,6 +93,20 @@ public class TransactionController {
         return new ResponseEntity<>(currentTransaction, HttpStatus.OK);
     }
 
-    @RequestMapping()
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id)
+    {
+        LOG.info("deleting transaction with id: {}", id);
+        Transaction transaction = transactionService.getTransactionById(id);
+
+        if (transaction == null)
+        {
+            LOG.info("Unable to delete. Transaction with id {} not found", id);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        transactionService.deleteTransactionById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }

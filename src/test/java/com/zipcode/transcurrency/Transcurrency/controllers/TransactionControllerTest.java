@@ -25,9 +25,7 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebAppConfiguration
@@ -138,6 +136,8 @@ public class TransactionControllerTest {
         verifyNoMoreInteractions(transactionService);
     }
 
+    // UPDATE TRANSACTION
+
     @Test
     public void test_update_person_success() throws Exception {
         Transaction transaction = new Transaction(1L);
@@ -173,9 +173,47 @@ public class TransactionControllerTest {
         verifyNoMoreInteractions(transactionService);
     }
 
-    @Test
-    public void test_delete_person_success() throws Exception {
+    //DELETE TRANSACTION
 
+    @Test
+    public void test_delete_transaction_success() throws Exception {
+        Transaction transaction = new Transaction(1L, 12L, 13L, 1234L, 12345L, 12346L);
+
+        when(transactionService.getTransactionById(transaction.getId())).thenReturn(transaction);
+        doNothing().when(transactionService).deleteTransactionById(transaction.getId());
+
+        mockMvc.perform(
+                delete("/transactions/{id}", transaction.getId()))
+                .andExpect(status().isOk());
+
+        verify(transactionService, times(1)).getTransactionById(transaction.getId());
+        verify(transactionService, times(1)).deleteTransactionById(transaction.getId());
+        verifyNoMoreInteractions(transactionService);
+    }
+
+    @Test
+    public void test_delete_transaction_fail_404_not_found() throws Exception {
+        Transaction transaction = new Transaction(999L);
+
+        when(transactionService.getTransactionById(transaction.getId())).thenReturn(null);
+
+        mockMvc.perform(
+                delete("/transactions/{id}", transaction.getId()))
+                .andExpect(status().isNotFound());
+
+        verify(transactionService, times(1)).getTransactionById(transaction.getId());
+        verifyNoMoreInteractions(transactionService);
+    }
+
+    // CORS HEADERS
+
+    @Test
+    public void test_cors_headers() throws Exception {
+        mockMvc.perform(get("/transactions"))
+                .andExpect(header().string("Access-Control-Allow-Origin", "*"))
+                .andExpect(header().string("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE"))
+                .andExpect(header().string("Access-Control-Allow-Headers", "*"))
+                .andExpect(header().string("Access-Control-Max-Age", "3600"));
     }
 
     public static String asJsonString(final Object obj) {

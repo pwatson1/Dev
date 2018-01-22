@@ -70,8 +70,11 @@ public class TransactionServiceTests {
     @Test
     public void deleteTransactionByIdTest() throws Exception {
         Long id = 1L;
+
         doNothing().when(transactionRepository).delete(1L);
+
         transactionService.deleteTransactionById(id);
+        
         verify(transactionRepository, times(1)).delete(1L);
     }
 

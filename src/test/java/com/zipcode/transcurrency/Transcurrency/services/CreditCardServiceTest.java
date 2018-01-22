@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -43,19 +44,38 @@ public class CreditCardServiceTest {
         assertEquals(creditCardList.size(), 1);
     }
 
-    @Test
-    public void createCreditCard() {
+    @Test(expected = RuntimeException.class)
+    public void createCreditCard() throws Exception{
+
+        when(creditCardRepository.save(any(CreditCard.class))).thenThrow(RuntimeException.class);
+
+        CreditCard creditCardTest = new CreditCard();
+
+        creditCardService.createCreditCard(creditCardTest);
+
+        verify(creditCardRepository, times(1)).save(creditCardTest);
+        verify(creditCardRepository).save(any(CreditCard.class));
     }
 
-    @Test
-    public void getCreditCard() {
-    }
-
-    @Test
-    public void updateCreditCard() {
-    }
-
-    @Test
-    public void deleteCreditCard() {
-    }
+//    @Test
+//    public void getCreditCard() {
+//
+//
+//    }
+//
+//    @Test
+//    public void updateCreditCard() {
+//
+//        int test = 2;
+//
+//        assertEquals(1, test);
+//    }
+//
+//    @Test
+//    public void deleteCreditCard() {
+//
+//        int test = 2;
+//
+//        assertEquals(1, test);
+//    }
 }

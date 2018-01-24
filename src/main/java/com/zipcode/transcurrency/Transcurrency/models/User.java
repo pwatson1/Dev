@@ -22,20 +22,12 @@ public class User {
     private String username;
     private BigDecimal balance;
 
-<<<<<<< HEAD
+
     private static final Logger logger = LoggerFactory.getLogger(User.class);
-
-    public User(){}
-=======
-    @OneToMany
-    private Set<BankAccount> bankAccountList = new HashSet<>();
-
-    @OneToMany
-    private Set<CreditCard> creditCardList = new HashSet<>();
 
     public User() {
     }
->>>>>>> testDev
+
 
     //set balance to zero when user instance is created
     public User(String name, String username) {

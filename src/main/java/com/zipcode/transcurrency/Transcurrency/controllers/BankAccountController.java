@@ -34,19 +34,19 @@ public class BankAccountController {
         return bankAccountService.createBankAccount(bankAccount);
     }
 
-    //get a bank account
+    //getTransaction a bank account
     @RequestMapping(value = "/bankAccounts/{bankAccountId}", method = RequestMethod.GET)
     public ResponseEntity<?> getBankAccount(@PathVariable Long bankAccountId){
         return bankAccountService.getBankAccount(bankAccountId);
     }
 
-    //update a bank account
+    //updateTransaction a bank account
     @RequestMapping(value = "/bankAccounts/{bankAccountId}", method = RequestMethod.PUT)
     public ResponseEntity<?> updateBankAccount(@RequestBody BankAccount bankAccount, @PathVariable Long bankAccountId){
         return bankAccountService.updateBankAccount(bankAccount, bankAccountId);
     }
 
-    //delete a bank account
+    //deleteTransaction a bank account
     @RequestMapping(value = "/bankAccounts/{bankAccountId}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteBankAccount(@PathVariable Long bankAccountId){
         return bankAccountService.deleteBankAccount(bankAccountId);

@@ -24,8 +24,8 @@ public class TransactionController {
 
     // GET ALL TRANSACTIONS
 
-    @RequestMapping(path = "/getAll", method = RequestMethod.GET)
-    public ResponseEntity<List<Transaction>> getAll() {
+    @RequestMapping(path = "/getAllTransactions", method = RequestMethod.GET)
+    public ResponseEntity<List<Transaction>> getAllTransactions() {
         LOG.info("getting all transactions");
         List<Transaction> transactions = transactionService.getAllTransactions();
 
@@ -40,7 +40,7 @@ public class TransactionController {
     // GET TRANSACTION BY ID
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public ResponseEntity<Transaction> get(@PathVariable("id") Long id) {
+    public ResponseEntity<Transaction> getTransaction(@PathVariable("id") Long id) {
         LOG.info("getting transaction with id: {}", id);
         Transaction transaction = transactionService.getTransactionById(id);
 
@@ -54,8 +54,8 @@ public class TransactionController {
 
     // CREATE NEW TRANSACTION
 
-    @RequestMapping(path = "/create", method = RequestMethod.POST)
-    public ResponseEntity<Void> create(@RequestBody Transaction transaction, UriComponentsBuilder ucBuilder) {
+    @RequestMapping(path = "/createTransaction", method = RequestMethod.POST)
+    public ResponseEntity<Void> createTransaction(@RequestBody Transaction transaction, UriComponentsBuilder ucBuilder) {
         LOG.info("creating new transaction: {}", transaction);
 
         if(transactionService.exists(transaction)) {
@@ -73,7 +73,7 @@ public class TransactionController {
     // UPDATE EXISTING PERSON
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Transaction> update(@PathVariable Long id, @RequestBody Transaction transaction) {
+    public ResponseEntity<Transaction> updateTransaction(@PathVariable Long id, @RequestBody Transaction transaction) {
         LOG.info("updating transaction: {}", transaction);
         Transaction currentTransaction = transactionService.getTransactionById(id);
 
@@ -94,14 +94,14 @@ public class TransactionController {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> delete(@PathVariable("id") Long id)
+    public ResponseEntity<Void> deleteTransaction(@PathVariable("id") Long id)
     {
         LOG.info("deleting transaction with id: {}", id);
         Transaction transaction = transactionService.getTransactionById(id);
 
         if (transaction == null)
         {
-            LOG.info("Unable to delete. Transaction with id {} not found", id);
+            LOG.info("Unable to deleteTransaction. Transaction with id {} not found", id);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 

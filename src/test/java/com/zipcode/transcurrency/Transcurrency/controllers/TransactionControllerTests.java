@@ -60,7 +60,7 @@ public class TransactionControllerTests {
 
         when(transactionService.getAllTransactions()).thenReturn(transactions);
 
-        mockMvc.perform(get("/transactions/getAll"))
+        mockMvc.perform(get("/transactions/getAllTransactions"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("$", hasSize(2)))
@@ -110,7 +110,7 @@ public class TransactionControllerTests {
         doNothing().when(transactionService).createTransaction(transaction);
 
         mockMvc.perform(
-                post("/transactions/create")
+                post("/transactions/createTransaction")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(transaction)))
                 .andExpect(status().isCreated())
@@ -127,7 +127,7 @@ public class TransactionControllerTests {
         when(transactionService.exists(transaction)).thenReturn(true);
 
         mockMvc.perform(
-                post("/transactions/create")
+                post("/transactions/createTransaction")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(transaction)))
                 .andExpect(status().isConflict());

@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,12 +32,17 @@ public class TranscurrencyApplication extends WebSecurityConfigurerAdapter {
 				.authorizeRequests()
 				.antMatchers("/", "/login**", "/webjars/**")
 				.permitAll()
-				.anyRequest()
-				.authenticated()
-				.and().logout().logoutSuccessUrl("/").permitAll()
-				.and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
-	}
+				.and()
+				.authorizeRequests()
+				.antMatchers( "/console/*")//for H2 console
+				.permitAll()
+				.and().logout().logoutSuccessUrl("/").permitAll();
+//				.and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
 
+		http.exceptionHandling().accessDeniedPage("/403");
+		http.csrf().disable();
+		http.headers().frameOptions().disable();
+	}
 
 	public static void main(String[] args) {
 		logger.info("Application running.");

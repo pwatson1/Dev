@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.function.Predicate;
 
 @Service
 public class UserService {
@@ -34,7 +32,6 @@ public class UserService {
                 .filter(user -> name.equals(user.getName()))
                 .findAny()
                 .orElse(null);
-
         return user1;
     }
 

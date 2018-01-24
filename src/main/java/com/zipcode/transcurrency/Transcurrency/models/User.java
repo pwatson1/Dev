@@ -1,5 +1,6 @@
 package com.zipcode.transcurrency.Transcurrency.models;
 
+<<<<<<< HEAD
 
 
 import org.slf4j.Logger;
@@ -9,7 +10,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+=======
+import javax.persistence.*;
+>>>>>>> testDev
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -22,9 +28,20 @@ public class User {
     private String username;
     private BigDecimal balance;
 
+<<<<<<< HEAD
     private static final Logger logger = LoggerFactory.getLogger(User.class);
 
     public User(){}
+=======
+    @OneToMany
+    private Set<BankAccount> bankAccountList = new HashSet<>();
+
+    @OneToMany
+    private Set<CreditCard> creditCardList = new HashSet<>();
+
+    public User() {
+    }
+>>>>>>> testDev
 
     //set balance to zero when user instance is created
     public User(String name, String username) {
@@ -32,9 +49,14 @@ public class User {
     }
 
     public User(String name, String username, BigDecimal balance) {
+        this(null, name, username, balance);
+    }
+
+    public User(Long id, String name, String username, BigDecimal balance) {
         this.name = name;
         this.username = username;
         this.balance = balance;
+        this.id = id;
     }
 
     public Long getId() {
@@ -71,5 +93,21 @@ public class User {
 
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
+    }
+
+    public Set<BankAccount> getBankAccountList() {
+        return bankAccountList;
+    }
+
+    public void setBankAccountList(Set<BankAccount> bankAccountList) {
+        this.bankAccountList = bankAccountList;
+    }
+
+    public Set<CreditCard> getCreditCardList() {
+        return creditCardList;
+    }
+
+    public void setCreditCardList(Set<CreditCard> creditCardList) {
+        this.creditCardList = creditCardList;
     }
 }

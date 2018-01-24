@@ -23,6 +23,9 @@ public class CreditCard {
     private String expDate;
     private int cvv;
 
+    @ManyToOne
+    private User user;
+
     public CreditCard(){
 
     }
@@ -86,5 +89,11 @@ public class CreditCard {
         this.cvv = cvv;
     }
 
+    public User getUser() {
+        return user;
+    }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

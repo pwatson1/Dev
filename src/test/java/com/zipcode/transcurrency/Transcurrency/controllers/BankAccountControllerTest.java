@@ -73,11 +73,29 @@ public class BankAccountControllerTest {
 
     @Test
     public void createBankAccount() {
+
         
+
     }
 
     @Test
-    public void getBankAccount() {
+    public void getBankAccount() throws Exception {
+
+        BankAccount bankAccount = new BankAccount(234, 456, "BitBank");
+        Long id = 1L;
+        bankAccount.setBankAccountId(id);
+
+        when(bankAccountService.getBankAccount(bankAccount.getBankAccountId())).thenReturn(bankAccount);
+        mockMvc.perform(get("/bankAccounts/{bankAccountId}", 1))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.bankAccountId", is(1)))
+                .andExpect(jsonPath("$.accountNumber", is(234)))
+                .andExpect(jsonPath("$.routingNumber", is(456)))
+                .andExpect(jsonPath("$.bankName", is("BitBank")));
+
+        verify(bankAccountService, times(1)).getBankAccount(id);
+
     }
 
     @Test

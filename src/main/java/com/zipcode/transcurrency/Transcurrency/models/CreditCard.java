@@ -1,14 +1,13 @@
 package com.zipcode.transcurrency.Transcurrency.models;
 
-
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 
 @Entity
 public class CreditCard {
-    private static final Logger logger = LogManager.getLogger(CreditCard.class);
+    private static final Logger logger = LoggerFactory.getLogger(CreditCard.class);
 
     @Id
 

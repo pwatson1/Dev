@@ -1,14 +1,14 @@
 package com.zipcode.transcurrency.Transcurrency;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-
 import com.zipcode.transcurrency.Transcurrency.models.BankAccount;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 
 public class Transfer {
-    private static final Logger logger = LogManager.getLogger(Transfer.class);
+    private static final Logger logger = LoggerFactory.getLogger(Transfer.class);
 
     private BankAccount toBankAccount; //field for instantiating bank account object
     private BigDecimal amount;

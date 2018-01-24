@@ -1,12 +1,6 @@
 package com.zipcode.transcurrency.Transcurrency.models;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,12 +16,14 @@ public class User {
     private String username;
     private BigDecimal balance;
 
+    @OneToMany
+    private Set<BankAccount> bankAccountList = new HashSet<>();
 
-    private static final Logger logger = LoggerFactory.getLogger(User.class);
+    @OneToMany
+    private Set<CreditCard> creditCardList = new HashSet<>();
 
     public User() {
     }
-
 
     //set balance to zero when user instance is created
     public User(String name, String username) {
@@ -46,22 +42,18 @@ public class User {
     }
 
     public Long getId() {
-        logger.info("Retrieving I.D.");
         return id;
     }
 
     public void setId(Long id) {
-        logger.info("Committing id to memory.");
         this.id = id;
     }
 
     public String getName() {
-        logger.info("Retrieving name.");
         return name;
     }
 
     public void setName(String name) {
-        logger.info("Committing name to memory.");
         this.name = name;
     }
 

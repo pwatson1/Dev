@@ -1,8 +1,5 @@
 package com.zipcode.transcurrency.Transcurrency.models;
 
-<<<<<<< HEAD
-
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,9 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-=======
-import javax.persistence.*;
->>>>>>> testDev
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;

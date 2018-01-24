@@ -61,17 +61,17 @@ public class BankAccountServiceTest {
     @Test
     public void getBankAccount() {
 
-//        //Given
-//        Long bankAccountId = 1L;
-//        BankAccount bankAccountInfo = new BankAccount(1232, 5468, "JP Morgan");
-//
-//        //When
-//        when(bankAccountRepository.findOne(bankAccountId)).thenReturn(bankAccountInfo);
-//        BankAccount newBankAccount = bankAccountService.getBankAccount(bankAccountId);
-//
-//        //Then
-//        assertEquals(1L, newBankAccount.getBankAccountId());
-//        assertEquals("JP Morgan", newBankAccount.getBankName());
+        //Given
+        Long bankAccountId = 1L;
+        BankAccount bankAccountInfo = new BankAccount(1232, 5468, "JP Morgan");
+
+        //When
+        when(bankAccountRepository.findOne(bankAccountId)).thenReturn(bankAccountInfo);
+        BankAccount newBankAccount = bankAccountService.getBankAccount(bankAccountId);
+
+        //Then
+        assertEquals(1L, newBankAccount.getBankAccountId());
+        assertEquals("JP Morgan", newBankAccount.getBankName());
     }
 
     @Test

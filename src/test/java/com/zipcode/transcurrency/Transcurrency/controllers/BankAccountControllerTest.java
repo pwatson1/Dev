@@ -15,12 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 public class BankAccountControllerTest {
 
     private MockMvc mockMvc;
@@ -61,13 +62,18 @@ public class BankAccountControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].accountNumber", is(123)))
+                .andExpect(jsonPath("$[0].routingNumber", is(456)))
+                .andExpect(jsonPath("$[0].bankName", is("PNC")));
 
+        verify(bankAccountService, times(1)).getAllBankAccounts();
 
 
     }
 
     @Test
     public void createBankAccount() {
+        
     }
 
     @Test

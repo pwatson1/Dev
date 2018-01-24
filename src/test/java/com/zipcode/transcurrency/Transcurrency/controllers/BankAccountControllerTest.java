@@ -16,12 +16,13 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+
 public class BankAccountControllerTest {
 
     private MockMvc mockMvc;
@@ -56,8 +57,6 @@ public class BankAccountControllerTest {
 
         when(bankAccountService.getAllBankAccounts()).thenReturn(bankAccountList);
 
-        Long id1 = 1L;
-
         mockMvc.perform(get("/bankAccounts"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
@@ -74,7 +73,18 @@ public class BankAccountControllerTest {
     @Test
     public void createBankAccount() {
 
-        
+        BankAccount bankAccountTest = new BankAccount(2345, 4567, "EthBank");
+
+        when(bankAccountService.createBankAccount(bankAccountTest));
+        doNothing().when(bankAccountService).createBankAccount(bankAccountTest);
+
+        mockMvc.perform(
+                post("/bankAccounts")
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .contentType(asJsonString(bankAccountTest)));
+
+
+        )
 
     }
 

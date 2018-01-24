@@ -23,11 +23,6 @@ public class BankAccountService {
         this.bankAccountRepository = bankAccountRepository;
     }
 
-//    public Iterable<BankAccount> getAllBankAccounts() {
-//        Iterable<BankAccount> allBankAccounts = bankAccountRepository.findAll();
-//        return allBankAccounts;
-//    }
-
     public List<BankAccount> getAllBankAccounts() {
         List<BankAccount> bankAccounts = new ArrayList<>();
         bankAccountRepository.findAll()

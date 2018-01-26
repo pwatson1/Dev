@@ -73,14 +73,31 @@ public class CreditCardControllerTest {
     }
 
     @Test
-    public void getCreditCard() {
+    public void getCreditCard() throws Exception {
+
+        CreditCard creditCard = new CreditCard("Gary TheSnail", 7575848, "6/21/20", 897);
+        Long id = 1L;
+        creditCard.setCreditCardId(id);
+
+        when(creditCardService.getCreditCard(creditCard.getCreditCardId())).thenReturn(creditCard);
+        mockMvc.perform(get("/creditCards/{creditCardId}", 1))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.creditCardId", is(1)))
+                .andExpect(jsonPath("$[0].cardName", is("Gary TheSnail")))
+                .andExpect(jsonPath("$[0].cardNumber", is(7575848)))
+                .andExpect(jsonPath("$[0].expDate", is("6/21/20")))
+                .andExpect(jsonPath("$[0].cvv", is(897)));
+
+        verify(creditCardService, times(1)).getCreditCard(id);
+
     }
 
-    @Test
-    public void updateCreditCard() {
-    }
-
-    @Test
-    public void deleteCreditCard() {
-    }
+//    @Test
+//    public void updateCreditCard() {
+//    }
+//
+//    @Test
+//    public void deleteCreditCard() {
+//    }
 }

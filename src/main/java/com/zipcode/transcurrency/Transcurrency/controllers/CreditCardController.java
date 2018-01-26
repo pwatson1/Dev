@@ -33,10 +33,10 @@ public class CreditCardController {
     }
 
     //creates credit cards
-//    @RequestMapping(value = "/creditCards", method = RequestMethod.POST)
-//    public ResponseEntity<?> createCreditCard(@RequestBody CreditCard creditCard) {
-//        return new ResponseEntity<>(creditCardService.createCreditCard(creditCard);
-//    }
+    @RequestMapping(value = "/creditCards", method = RequestMethod.POST)
+    public ResponseEntity<?> createCreditCard(@RequestBody CreditCard creditCard) {
+        return creditCardService.createCreditCard(creditCard);
+    }
 
     //gets a credit card
     @RequestMapping(value = "/creditCards/{creditCardId}", method = RequestMethod.GET)

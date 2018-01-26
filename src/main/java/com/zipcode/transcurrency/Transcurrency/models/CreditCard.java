@@ -6,6 +6,7 @@ import javax.persistence.*;
 @Entity
 public class CreditCard {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "CREDIT_CARD_ID")
@@ -36,7 +37,7 @@ public class CreditCard {
         return creditCardId;
     }
 
-    public void setId(Long CreditCardId) {
+    public void setCreditCardId(Long CreditCardId) {
         this.creditCardId = CreditCardId;
     }
 

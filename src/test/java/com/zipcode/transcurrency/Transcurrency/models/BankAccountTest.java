@@ -1,4 +1,4 @@
-package com.zipcode.transcurrency.Transcurrency.modelsTests;
+package com.zipcode.transcurrency.Transcurrency.models;
 
 import com.zipcode.transcurrency.Transcurrency.models.BankAccount;
 import org.junit.Test;

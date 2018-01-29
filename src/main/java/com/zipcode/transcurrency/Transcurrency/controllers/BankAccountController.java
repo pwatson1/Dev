@@ -25,12 +25,7 @@ public class BankAccountController {
         this.bankAccountService = bankAccountService;
     }
 
-    //gets all bank accounts
-//    @RequestMapping(value = "/bankAccounts", method = RequestMethod.GET)
-//    public ResponseEntity<Iterable<BankAccount>> getAllBankAccounts() {
-//        return new ResponseEntity<>(bankAccountService.getAllBankAccounts(), HttpStatus.OK);
-//    }
-
+    //Gets all bank accounts
     @RequestMapping(value = "/bankAccounts", method = RequestMethod.GET)
     public ResponseEntity<List<BankAccount>> getAllBankAccounts() {
         return new ResponseEntity<>(bankAccountService.getAllBankAccounts(), HttpStatus.OK);

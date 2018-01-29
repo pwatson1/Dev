@@ -26,6 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
+
 public class CreditCardControllerTest {
 
     private MockMvc mockMvc;
@@ -50,7 +51,7 @@ public class CreditCardControllerTest {
         CreditCard creditCard1 = new CreditCard("Gary Busy", 1999, "9/06/20", 621);
         creditCard1.setCreditCardId(1L);
 
-        CreditCard creditCard2 = new CreditCard("Joey Bag of Donuts", 1776, "8/30/1492", 696);
+        CreditCard creditCard2 = new CreditCard("Joey Bag of Donuts", 1776, "8/30/1492", 545);
         creditCard2.setCreditCardId(2L);
 
         List<CreditCard> creditCardList = new ArrayList<>();
@@ -84,10 +85,10 @@ public class CreditCardControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.creditCardId", is(1)))
-                .andExpect(jsonPath("$[0].cardName", is("Gary TheSnail")))
-                .andExpect(jsonPath("$[0].cardNumber", is(7575848)))
-                .andExpect(jsonPath("$[0].expDate", is("6/21/20")))
-                .andExpect(jsonPath("$[0].cvv", is(897)));
+                .andExpect(jsonPath("$.cardName", is("Gary TheSnail")))
+                .andExpect(jsonPath("$.cardNumber", is(7575848)))
+                .andExpect(jsonPath("$.expDate", is("6/21/20")))
+                .andExpect(jsonPath("$.cvv", is(897)));
 
         verify(creditCardService, times(1)).getCreditCard(id);
 

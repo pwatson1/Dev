@@ -21,11 +21,6 @@ public class CreditCardService {
         this.creditCardRepository = creditCardRepository;
     }
 
-    //gets all credit cards
-//    public ResponseEntity<Iterable<CreditCard>> getAllCreditCards() {
-//        Iterable<CreditCard> allCreditCards = creditCardRepository.findAll();
-//        return new ResponseEntity<>(allCreditCards, HttpStatus.OK);
-//    }
 
     public List<CreditCard> getAllCreditCards() {
         List<CreditCard> creditCards = new ArrayList<>();
@@ -35,7 +30,7 @@ public class CreditCardService {
     }
 
     //creates a credit card
-    public ResponseEntity<?> createCreditCard(CreditCard creditCard) {
+    public HttpHeaders createCreditCard(CreditCard creditCard) {
 
         creditCard = creditCardRepository.save(creditCard);
 
@@ -47,25 +42,23 @@ public class CreditCardService {
                 .toUri();
         responseHeaders.setLocation(newCreditCardURI);
 
-        return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
+        return responseHeaders;
     }
 
     //gets a single credit card
-    public ResponseEntity<?> getCreditCard(Long creditCardId) {
-        CreditCard card = creditCardRepository.findOne(creditCardId);
-        return new ResponseEntity<>(card, HttpStatus.OK);
+    public CreditCard getCreditCard(Long creditCardId) {
+        return creditCardRepository.findOne(creditCardId);
     }
 
     //updates credit card info
-    public ResponseEntity<?> updateCreditCard(CreditCard creditCard, Long creditCardId) {
-        CreditCard card = creditCardRepository.save(creditCard);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public CreditCard updateCreditCard(CreditCard creditCard, Long creditCardId) {
+        return creditCardRepository.save(creditCard);
     }
 
     //deletes a credit card
-    public ResponseEntity<?> deleteCreditCard(Long creditCardId) {
+    public Boolean deleteCreditCard(Long creditCardId) {
         creditCardRepository.delete(creditCardId);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return true;
     }
 
 }

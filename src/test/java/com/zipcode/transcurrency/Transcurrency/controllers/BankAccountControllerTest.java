@@ -70,8 +70,8 @@ public class BankAccountControllerTest {
 
     }
 
-    @Test
-    public void createBankAccount() {
+//    @Test
+//    public void createBankAccount() {
 
 //        BankAccount bankAccountTest = new BankAccount(2345, 4567, "EthBank");
 //
@@ -86,7 +86,7 @@ public class BankAccountControllerTest {
 //
 //        )
 
-    }
+//    }
 
     @Test
     public void getBankAccount() throws Exception {
